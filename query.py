@@ -33,7 +33,7 @@ class TQuery:
         self.ChangeDataSetPosition()        
     
     def Last(self):
-        self.index = len(self.records) - 1
+        self.index = len(self.records)
         self.isEOF()
         self.ChangeDataSetPosition()
         
@@ -125,14 +125,11 @@ class TParameter:
         elif name == 'AsFloat':
             self.__dict__['value'] = float(value)
         elif name == 'AsDate':
-            convert = datetime.strptime(value, self.dateformat)
-            self.__dict__['value'] = convert
+            self.__dict__['value'] = value
         elif name == 'AsTime':
-            convert = datetime.strptime(value, self.timeformat)
-            self.__dict__['value'] = convert
+            self.__dict__['value'] = value
         elif name == 'AsDateTime':
-            convert = datetime.strptime(value, self.datetimeformat)
-            self.__dict__['value'] = convert
+            self.__dict__['value'] = value
         elif name == 'AsCurrency':
             self.__dict__['value'] = '{:.4f}'.format(value)
         
@@ -182,16 +179,23 @@ class TSQL:
     def __init__(self):
         self.text = ''
 
+    def Add(self, text):
+        self.text = self.text + text
+
     def Text(self, text = ''):
         if(len(text)):
             self.text = text
         return self.text
 
     def SaveTofile(self, filename):
-        pass
+        f = open(filename,"a+")
+        f.write(self.text)
+        f.close()
 
     def LoadFromFile(self, filename):
-        pass
+        f = open(filename,"r")
+        self.text = f.read()
+        f.close()
     
 
 
