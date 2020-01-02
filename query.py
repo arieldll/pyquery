@@ -52,8 +52,7 @@ class TQuery:
     def Prior(self):        
         self.index -= 1
         self.isEOF()
-        self.ChangeDataSetPosition()
-        
+        self.ChangeDataSetPosition()        
 
     def ChangeDataSetPosition(self):
         if not self.EOF: 
